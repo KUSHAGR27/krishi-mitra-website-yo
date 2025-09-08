@@ -2,7 +2,26 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { ChevronDown, ChevronRight, FileText, MessageSquare, Send, IndianRupee } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { 
+  ChevronDown, 
+  ChevronRight, 
+  FileText, 
+  MessageSquare, 
+  Send, 
+  IndianRupee,
+  Bot,
+  Mic,
+  Camera,
+  Upload,
+  Shield,
+  CreditCard,
+  Phone,
+  Video,
+  HelpCircle,
+  Globe
+} from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface SidebarProps {
@@ -12,6 +31,9 @@ interface SidebarProps {
 const Sidebar = ({ isHindi }: SidebarProps) => {
   const [expandedScheme, setExpandedScheme] = useState<string | null>(null);
   const [feedback, setFeedback] = useState("");
+  const [chatMessage, setChatMessage] = useState("");
+  const [soilCondition, setSoilCondition] = useState("");
+  const [selectedLanguage, setSelectedLanguage] = useState(isHindi ? "hindi" : "english");
   const { toast } = useToast();
 
   const governmentSchemes = [
@@ -65,9 +87,111 @@ const Sidebar = ({ isHindi }: SidebarProps) => {
     }
   };
 
+  const handleChatSubmit = () => {
+    if (chatMessage.trim()) {
+      toast({
+        title: isHindi ? "संदेश भेजा गया" : "Message Sent",
+        description: isHindi 
+          ? "आपका संदेश AI बॉट को भेज दिया गया है।"
+          : "Your message has been sent to the AI bot."
+      });
+      setChatMessage("");
+    }
+  };
+
+  const handlePhotoUpload = () => {
+    toast({
+      title: isHindi ? "फोटो अपलोड" : "Photo Upload",
+      description: isHindi 
+        ? "यह फीचर जल्द ही उपलब्ध होगा।"
+        : "This feature will be available soon."
+    });
+  };
+
   return (
     <aside className="w-80 bg-muted/30 border-r border-border h-full overflow-y-auto">
-      <div className="p-4 space-y-6">
+      <div className="p-4 space-y-4">
+        {/* AI Chatbot Section */}
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Bot className="h-5 w-5 text-primary" />
+              {isHindi ? "AI चैटबॉट" : "AI Chatbot"}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex gap-2">
+              <Input
+                placeholder={isHindi ? "अपना सवाल पूछें..." : "Ask your question..."}
+                value={chatMessage}
+                onChange={(e) => setChatMessage(e.target.value)}
+                className="text-sm"
+              />
+              <Button 
+                onClick={handleChatSubmit}
+                size="icon"
+                variant="agricultural"
+                disabled={!chatMessage.trim()}
+              >
+                <Send className="h-4 w-4" />
+              </Button>
+            </div>
+            <div className="flex gap-2">
+              <Button size="sm" variant="outline" className="flex-1">
+                <Mic className="h-4 w-4 mr-1" />
+                {isHindi ? "बोलें" : "Voice"}
+              </Button>
+              <Button size="sm" variant="outline" className="flex-1">
+                <Globe className="h-4 w-4 mr-1" />
+                {selectedLanguage === "hindi" ? "हिं" : "EN"}
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Upload Farm Photo Section */}
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Camera className="h-5 w-5 text-primary" />
+              {isHindi ? "खेत की फोटो अपलोड" : "Upload Farm Photo"}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <Button 
+              onClick={handlePhotoUpload}
+              variant="outline" 
+              className="w-full"
+            >
+              <Upload className="h-4 w-4 mr-2" />
+              {isHindi ? "फोटो चुनें" : "Choose Photo"}
+            </Button>
+            <div className="space-y-2">
+              <Label className="text-sm">
+                {isHindi ? "मिट्टी की स्थिति" : "Soil Condition"}
+              </Label>
+              <select 
+                className="w-full p-2 text-sm border border-border rounded"
+                value={soilCondition}
+                onChange={(e) => setSoilCondition(e.target.value)}
+              >
+                <option value="">
+                  {isHindi ? "चुनें" : "Select"}
+                </option>
+                <option value="dry">
+                  {isHindi ? "सूखी" : "Dry"}
+                </option>
+                <option value="moist">
+                  {isHindi ? "नम" : "Moist"}
+                </option>
+                <option value="wet">
+                  {isHindi ? "गीली" : "Wet"}
+                </option>
+              </select>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Government Schemes Section */}
         <Card>
           <CardHeader className="pb-3">
@@ -111,6 +235,56 @@ const Sidebar = ({ isHindi }: SidebarProps) => {
           </CardContent>
         </Card>
 
+        {/* Insurance & Loan Section */}
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Shield className="h-5 w-5 text-primary" />
+              {isHindi ? "बीमा और लोन" : "Insurance & Loan"}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            <div className="space-y-2">
+              <div className="flex justify-between items-center p-2 bg-background rounded">
+                <span className="text-sm">
+                  {isHindi ? "SBI कृषि लोन" : "SBI Agri Loan"}
+                </span>
+                <span className="text-sm font-medium text-agricultural">7.5%</span>
+              </div>
+              <div className="flex justify-between items-center p-2 bg-background rounded">
+                <span className="text-sm">
+                  {isHindi ? "PMFBY बीमा" : "PMFBY Insurance"}
+                </span>
+                <span className="text-sm font-medium text-agricultural">₹50/acre</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Help Section */}
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="flex items-center gap-2 text-base">
+              <HelpCircle className="h-5 w-5 text-primary" />
+              {isHindi ? "सहायता" : "Help"}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            <Button variant="outline" size="sm" className="w-full justify-start">
+              <Phone className="h-4 w-4 mr-2" />
+              999333xxxx
+            </Button>
+            <Button variant="outline" size="sm" className="w-full justify-start">
+              <Phone className="h-4 w-4 mr-2" />
+              98765432XX
+            </Button>
+            <Button variant="outline" size="sm" className="w-full justify-start">
+              <Video className="h-4 w-4 mr-2" />
+              {isHindi ? "वीडियो सहायता" : "Video Support"}
+            </Button>
+          </CardContent>
+        </Card>
+
         {/* Feedback Section */}
         <Card>
           <CardHeader className="pb-3">
@@ -127,7 +301,7 @@ const Sidebar = ({ isHindi }: SidebarProps) => {
               }
               value={feedback}
               onChange={(e) => setFeedback(e.target.value)}
-              className="min-h-[80px] text-sm"
+              className="min-h-[60px] text-sm"
             />
             <Button 
               onClick={handleFeedbackSubmit}
