@@ -91,9 +91,9 @@ const ProductShowcase = ({ isHindi }: ProductShowcaseProps) => {
   ];
 
   return (
-    <section className="bg-muted/30 py-8">
+    <section className="bg-muted/30 py-6 md:py-8">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-8">
+        <div className="text-center mb-6 md:mb-8">
           <h2 className="text-2xl font-bold text-foreground mb-2">
             {isHindi ? "कृषि उत्पाद स्टोर" : "Agricultural Products Store"}
           </h2>
@@ -106,16 +106,16 @@ const ProductShowcase = ({ isHindi }: ProductShowcaseProps) => {
         </div>
 
         {/* Hero Image */}
-        <div className="mb-8 rounded-lg overflow-hidden">
+        <div className="mb-6 md:mb-8 rounded-lg overflow-hidden">
           <img 
             src={productsImage} 
             alt={isHindi ? "कृषि उत्पाद" : "Agricultural Products"}
-            className="w-full h-48 object-cover"
+            className="w-full h-32 md:h-48 object-cover"
           />
         </div>
 
         {/* Products Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {products.map((product) => (
             <Card key={product.id} className={`relative ${!product.inStock ? 'opacity-75' : ''}`}>
               {product.subsidy > 0 && (
@@ -201,7 +201,7 @@ const ProductShowcase = ({ isHindi }: ProductShowcaseProps) => {
         </div>
 
         {/* Advertisement Placeholder */}
-        <div className="mt-8">
+        <div className="mt-6 md:mt-8">
           <Card className="bg-gradient-to-r from-accent/20 to-warning/20 border-accent/30">
             <CardContent className="p-6 text-center">
               <h3 className="text-lg font-semibold text-accent-foreground mb-2">

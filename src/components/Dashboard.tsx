@@ -17,7 +17,7 @@ interface DashboardProps {
 
 const Dashboard = ({ isHindi }: DashboardProps) => {
   return (
-    <div className="space-y-6 p-6">
+    <div className="space-y-4 md:space-y-6 p-4 md:p-6">
       {/* Crop Progress Dashboard */}
       <Card>
         <CardHeader>
@@ -27,7 +27,7 @@ const Dashboard = ({ isHindi }: DashboardProps) => {
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div className="space-y-2">
               <div className="flex justify-between items-center">
                 <span className="text-sm font-medium">
@@ -107,7 +107,7 @@ const Dashboard = ({ isHindi }: DashboardProps) => {
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <Card>
               <CardContent className="p-4">
                 <h4 className="font-medium mb-2">
@@ -160,7 +160,7 @@ const Dashboard = ({ isHindi }: DashboardProps) => {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div className="text-center">
               <Thermometer className="h-8 w-8 mx-auto mb-2 text-orange-500" />
               <p className="font-medium">28°C</p>
