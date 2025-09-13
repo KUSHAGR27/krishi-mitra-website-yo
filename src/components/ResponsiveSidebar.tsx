@@ -20,8 +20,12 @@ import {
   Phone,
   Video,
   HelpCircle,
-  Globe
+  Globe,
+  Cloud,
+  Wheat,
+  Navigation
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import {
   Sidebar,
@@ -40,6 +44,7 @@ interface ResponsiveSidebarProps {
 }
 
 const ResponsiveSidebar = ({ isHindi }: ResponsiveSidebarProps) => {
+  const navigate = useNavigate();
   const [expandedScheme, setExpandedScheme] = useState<string | null>(null);
   const [feedback, setFeedback] = useState("");
   const [chatMessage, setChatMessage] = useState("");
@@ -126,6 +131,35 @@ const ResponsiveSidebar = ({ isHindi }: ResponsiveSidebarProps) => {
     <Sidebar className="border-r">
       <SidebarContent className="overflow-y-auto">
         <div className="p-2 md:p-4 space-y-3 md:space-y-4">
+          {/* Navigation Section */}
+          <Card>
+            <CardHeader className="pb-2 md:pb-3">
+              <CardTitle className="flex items-center gap-2 text-sm md:text-base">
+                <Navigation className="h-4 w-4 md:h-5 md:w-5 text-primary" />
+                {!isCollapsed && (isHindi ? "सेवाएं" : "Services")}
+              </CardTitle>
+            </CardHeader>
+            {!isCollapsed && (
+              <CardContent className="space-y-2">
+                <Button 
+                  onClick={() => navigate('/weather')}
+                  variant="outline" 
+                  className="w-full justify-start text-xs md:text-sm"
+                >
+                  <Cloud className="h-3 w-3 md:h-4 md:w-4 mr-2" />
+                  {isHindi ? "मौसम की जानकारी" : "Weather Forecast"}
+                </Button>
+                <Button 
+                  onClick={() => navigate('/crop-suggestions')}
+                  variant="outline" 
+                  className="w-full justify-start text-xs md:text-sm"
+                >
+                  <Wheat className="h-3 w-3 md:h-4 md:w-4 mr-2" />
+                  {isHindi ? "फसल सुझाव" : "Crop Suggestions"}
+                </Button>
+              </CardContent>
+            )}
+          </Card>
           {/* AI Chatbot Section */}
           <Card>
             <CardHeader className="pb-2 md:pb-3">
